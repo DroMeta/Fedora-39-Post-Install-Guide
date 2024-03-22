@@ -13,7 +13,9 @@ best=False
 skip_if_unavailable=True 
 fastestmirror=1 
 max_parallel_downloads=10 
-deltarpm=true
+deltarpm=True
+defaultyes=True
+keepcache=True
 ``` 
 * Note: The `fastestmirror=1` plugin can be counterproductive at times, use it at your own discretion. Set it to `fastestmirror=0` if you are facing bad download speeds. Many users have reported better download speeds with the plugin enables so it is there by default.
 
@@ -59,6 +61,8 @@ sudo fwupdmgr update
 * Also install powertop by:
 * `sudo dnf install powertop`
 * `sudo powertop --auto-tune`
+* Show battery percentage as true
+* `gsettings set org.gnome.desktop.interface show-battery-percentage true`
 
 ## Media Codecs
 * Install these to get proper multimedia playback.
@@ -100,8 +104,14 @@ sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld
 ## Update Flatpak
 * `flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo`
 * `flatpak update`
+  
+## Snap support is easily enabled as well. Many Snap packages also have Flatpak counterparts. Consider evaluating Snapcraft to see if the redundancy is necessary.
+* `sudo dnf install -y snapd`
+* `sudo ln -s /var/lib/snapd/snap /snap # for classic snap support`
+* `sudo reboot now`
 
-## Set Hostname
+
+## Set Hostname. It is also possible to do this in the settings menu under about About.
 * `hostnamectl set-hostname YOUR_HOSTNAME`
 
 ## Custom DNS Servers
@@ -142,9 +152,52 @@ DNSOverTLS=yes
 * Gnome software autostarts on boot for some reason, even though it is not required on every boot unless you want it to do updates in the background, this takes at least 100MB of RAM upto 900MB (as reported anecdotically). You can stop it from autostarting by:
 * `sudo rm /etc/xdg/autostart/org.gnome.Software.desktop`
 
+### If you’re happy with the default fonts on Fedora, then carry on. These are the default fonts on Pop!_OS.
+* `sudo dnf install -y fira-code-fonts 'mozilla-fira*' 'google-roboto*'`
+
+### After installing, open Gnome Tweaks to tweak the fonts. If you haven’t installed Gnome Tweaks, its necessary to do so before proceeding.
+* `sudo dnf install -y gnome-tweaks gnome-extensions-app`
+* Open Gnome Tweaks and adjust each font individually. Most modern screens are LCD and will benefit from enabling Subpixel Antialiasing. 
+
+### Installing Microsoft TrueType fonts can improve compatibility and stability of Microsoft Office generated files, including those in Microsoft 365. Follow these commands to install the fonts.
+* `sudo dnf install curl cabextract xorg-x11-font-utils fontconfig`
+* `sudo rpm -i https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm`
+
+### Many of these apps can be found in the Software Center. If you’re move comfortable installing software in a graphical point and click environment, the choice is you'res my friend. Software installations can be stacked together to save time and effort. For example, if you wish to install VLC and GIMP, the command can be executed as follows.
+* `sudo dnf install -y install vlc gimp`
+
+### Instructions to install the Flatpak versions have been added. It is only necessary to install via dnf or Flatpak but not both.
+* Archive tools open compressed files.
+* `sudo dnf install -y unzip p7zip p7zip-plugins unrar`
+
+### Audacity is an excellent audio editor. 
+* `sudo dnf install -y audacity`
+* `flatpak install flathub org.audacityteam.Audacity`
+
+### Dropbox is a cloud storage service that works across multiple platforms.
+* `sudo dnf install -y dropbox nautilus-dropbox`
+* `flatpak install flathub com.dropbox.Client`
+
+### GIMP or GNU Image Manipulation Program is an open source photo editor often touted as the alternative to its proprietary counterpart.
+* `sudo dnf install -y gimp`
+* `flatpak install flathub org.gimp.GIMP`
+
+### Simplenote can be tied to a WordPress account for easy posting. Available Flatpak or Snap.
+* `flatpak install flathub com.simplenote.Simplenote`
+
+### Spotify is a music streaming service with mobile apps available as well.
+* `flatpak install flathub com.spotify.Client`
+
+### GParted is a partition management utility. Gnome Disks is preinstalled on Fedora with similar functionality.
+* `sudo dnf install -y gparted`
+
+### OBS Studio captures, records, and streams live video. 
+* `sudo dnf install -y obs-studio`
+* `flatpak install flathub com.obsproject.Studio`
+
 ## Gnome Extensions
 * Don't install these if you are using a different spin of Fedora.
-* Pop Shell - run `sudo dnf install -y gnome-shell-extension-pop-shell xprop` to install it.
+* Pop Shell - run `sudo dnf install -y gnome-shell-extension-pop-shell xprop` to install it. !This will change keystroke shortcuts!
 * [GSconnect](https://extensions.gnome.org/extension/1319/gsconnect/) - run `sudo dnf install nautilus-python` for full support.
 * [Gesture Improvements](https://extensions.gnome.org/extension/4245/gesture-improvements/)
 * [Quick Settings Tweaker](https://github.com/qwreey75/quick-settings-tweaks)
@@ -175,6 +228,7 @@ Blanket
 Builder
 Brave 
 Blender
+Colorwall
 Discord
 Drawing
 Deja Dup Backups
@@ -242,3 +296,32 @@ yt-dlp
 
 ### Grub Theme
 * https://github.com/vinceliuice/grub2-themes
+
+### Change the desktop eviroment.
+*Fedora uses Gnome by default with several other desktop environment (DE) spins available. These DEs are still available after installing Fedora. Installing multiple DEs can cause conflicts with key managers and themes. Available desktop environments can be found with this command:
+* `dnf grouplist -v`
+
+### The command will yield a list similar to this:
+
+   * Fedora Custom Operating System (custom-environment)
+   * Minimal Install (minimal-environment)
+   * Fedora Server Edition (server-product-environment)
+   * Fedora Workstation (workstation-product-environment)
+   * Fedora Cloud Server (cloud-server-environment)
+   * KDE Plasma Workspaces (kde-desktop)
+   * Xfce Desktop (xfce-desktop)
+   * LXDE Desktop (lxde-desktop)
+   * LXQt Desktop (lxqt-desktop)
+   * Cinnamon Desktop (cinnamon-desktop)
+   * MATE Desktop (mate-desktop)
+   * Sugar Desktop Environment (sugar-desktop)
+   * Deepin Desktop (deepin-desktop)
+   * Development and Creative Workstation (developer-workstation)
+   * Web Server (web-server-environment)
+   * Infrastructure Server (infrastructure-server-environment)
+   * Basic Desktop (basic-desktop-environment)
+
+### Using the package name from the list above, install the desktop enviroment with a simple dnf install substituting kde-desktop-environment with the preferred DE.
+* `sudo dnf install @kde-desktop`
+* DEs can be switched at the login screen or alternatively, with the Desktop Switcher tool.
+* `sudo dnf -y install switchdesk switchdesk-gui`
