@@ -164,7 +164,7 @@ DNSOverTLS=yes
 * `sudo rpm -i https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm`
 
 ### Many of these apps can be found in the Software Center. If you’re move comfortable installing software in a graphical point and click environment, the choice is you'res my friend. Software installations can be stacked together to save time and effort. For example, if you wish to install VLC and GIMP, the command can be executed as follows.
-* `sudo dnf install -y install vlc gimp`
+* `sudo dnf install -y vlc gimp`
 
 ### Instructions to install the Flatpak versions have been added. It is only necessary to install via dnf or Flatpak but not both.
 * Archive tools open compressed files.
