@@ -54,7 +54,7 @@ sudo fwupdmgr update
 
 ## Battery Life
 * Follow this if you have a Laptop and are facing sub optimal battery backup.
-* power-profiles-daemon which come pre-configured works great on a great majority of systems but still in case you're facing sub-optimal battery backup you can try installing tlp by inserting the following:
+* power-profiles-daemon which come pre-configured works great on a great majority of systems but still in case you're facing sub-optimal battery backup you can try installing tlp by applying the following:
 * `sudo dnf install tlp tlp-rdw`
 * and mask power-profiles-daemon by:
 * `sudo systemctl mask power-profiles-daemon`
