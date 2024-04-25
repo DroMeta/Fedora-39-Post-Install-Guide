@@ -1,4 +1,4 @@
- # Fedora 39 Post Install Guide
+ # Fedora 40 Post Install Guide
 Things to do after installing Fedora 39
 
 ## Faster Updates
