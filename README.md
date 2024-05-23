@@ -121,5 +121,63 @@ DNS=1.1.1.2#security.cloudflare-dns.com 1.0.0.2#security.cloudflare-dns.com 2606
 DNSOverTLS=yes
 ```
 
+## Theming [Optional]
+
+### GTK Themes
+* Don't install these if you are using a different spin of Fedora.
+* https://github.com/lassekongo83/adw-gtk3
+* https://github.com/vinceliuice/Colloid-gtk-theme
+* https://github.com/EliverLara/Nordic
+* https://github.com/vinceliuice/Orchis-theme
+* https://github.com/vinceliuice/Graphite-gtk-theme
+
+### Use themes in Flatpaks
+* `sudo flatpak override --filesystem=$HOME/.themes`
+* `sudo flatpak override --env=GTK_THEME=my-theme` 
+
+### Icon Packs
+* https://github.com/vinceliuice/Tela-icon-theme
+* https://github.com/vinceliuice/Colloid-gtk-theme/tree/main/icon-theme
+
+### Wallpaper
+* https://github.com/manishprivet/dynamic-gnome-wallpapers
+
+### Firefox Theme
+* Install Firefox Gnome theme by: `curl -s -o- https://raw.githubusercontent.com/rafaelmardojai/firefox-gnome-theme/master/scripts/install-by-curl.sh | bash`
+
+### Starship (terminal theme)
+* Configure starship to make your terminal look good (refer https://starship.rs)
+
+### Grub Theme
+* https://github.com/vinceliuice/grub2-themes
+
+### Change the desktop eviroment.
+*Fedora uses Gnome by default with several other desktop environment (DE) spins available. These DEs are still available after installing Fedora. Installing multiple DEs can cause conflicts with key managers and themes. Available desktop environments can be found with this command:
+* `dnf grouplist -v`
+
+### The command will yield a list similar to this:
+
+   * Fedora Custom Operating System (custom-environment)
+   * Minimal Install (minimal-environment)
+   * Fedora Server Edition (server-product-environment)
+   * Fedora Workstation (workstation-product-environment)
+   * Fedora Cloud Server (cloud-server-environment)
+   * KDE Plasma Workspaces (kde-desktop)
+   * Xfce Desktop (xfce-desktop)
+   * LXDE Desktop (lxde-desktop)
+   * LXQt Desktop (lxqt-desktop)
+   * Cinnamon Desktop (cinnamon-desktop)
+   * MATE Desktop (mate-desktop)
+   * Sugar Desktop Environment (sugar-desktop)
+   * Deepin Desktop (deepin-desktop)
+   * Development and Creative Workstation (developer-workstation)
+   * Web Server (web-server-environment)
+   * Infrastructure Server (infrastructure-server-environment)
+   * Basic Desktop (basic-desktop-environment)
+
+### Using the package name from the list above, install the desktop enviroment with a simple dnf install substituting kde-desktop-environment with the preferred DE.
+* `sudo dnf install @kde-desktop`
+* DEs can be switched at the login screen or alternatively, with the Desktop Switcher tool.
+* `sudo dnf -y install switchdesk switchdesk-gui`
 
 
