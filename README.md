@@ -13,7 +13,7 @@
 * I put this list together for myself and others for a quick and easy way to upgrade any system. You can take some of these and interchange with any Distro. ive done so with multiple Debian OSs. (i.e. Nemo FileMan, the Flatpak repo, and Battery Life. ..)
 
 ## Set your hostname CLi
-`hostnamectl set-hostname YOUR.HOSTNAME.com`
+* `hostnamectl set-hostname YOUR.HOSTNAME.com`
 
 ## Faster DNF
 * `sudo nano /etc/dnf/dnf.conf`
@@ -40,100 +40,100 @@ keepcache=yes
 ## RPM Fusion
 * First enable access to the free and non-free repositories. If installing both the Mirror will be from the rpmfusion webpage.
 * free
-`https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-40.noarch.rpm`
+* `https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-40.noarch.rpm`
 * non-free
-`https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-40.noarch.rpm`
+* `https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-40.noarch.rpm`
 
 * Mirror
-`sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm`
+* `sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm`
 
 ## RPM Firmware
 * If you would like the Tainted repositories add the following
-`sudo dnf install rpmfusion-nonfree-release-tainted`
-`sudo dnf --repo=rpmfusion-nonfree-tainted install "*-firmware"`
+* `sudo dnf install rpmfusion-nonfree-release-tainted`
+* `sudo dnf --repo=rpmfusion-nonfree-tainted install "*-firmware"`
 
 ## Update and Restart Now
 * DNF update is similar to Debian `sudo apt-get update && sudo apt-get upgrade`
-`sudo dnf update -y`
-`sudo dnf -y upgrade --refresh`
+* `sudo dnf update -y`
+* `sudo dnf -y upgrade --refresh`
 
 ## Media Codec
 * It is Not Advised to cut or edit the following commands due to the possible resulting broken packages and --fix-broken ,, --allowerasing W: error flags. Please use the Full Syntax
-`sudo dnf groupupdate 'core' 'multimedia' 'sound-and-video' --setopt='install_weak_deps=False' --exclude='PackageKit-gstreamer-plugin' --allowerasing && sync`
-`sudo dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel ffmpeg gstreamer-ffmpeg`
+* `sudo dnf groupupdate 'core' 'multimedia' 'sound-and-video' --setopt='install_weak_deps=False' --exclude='PackageKit-gstreamer-plugin' --allowerasing && sync`
+* `sudo dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel ffmpeg gstreamer-ffmpeg`
 
 ## Accelerated Hardware  Codec
 * Intel(recent) using the rpmfusion-nonfree section
-`sudo dnf install intel-media-driver`
+* `sudo dnf install intel-media-driver`
 
 * Intel(older) using the rpmfusion-free section
-`sudo dnf install libva-intel-driver`
+* `sudo dnf install libva-intel-driver`
 
 # Hardware codecs with AMD (mesa)
 * Using the rpmfusion-free section This is required since Fedora 37 and later. The following drivers mainly concern AMD hardware since NVIDIA hardware with nouveau doesnt work well
-`sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld`
-`sudo dnf swap mesa-vdpau-drivers mesa-vdpau-drivers-freeworld`
+* `sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld`
+* `sudo dnf swap mesa-vdpau-drivers mesa-vdpau-drivers-freeworld`
 
 * If using i686 compat libraries (for steam or alikes)
-`sudo dnf swap mesa-va-drivers.i686 mesa-va-drivers-freeworld.i686`
-`sudo dnf swap mesa-vdpau-drivers.i686 mesa-vdpau-drivers-freeworld.i686`
+* `sudo dnf swap mesa-va-drivers.i686 mesa-va-drivers-freeworld.i686`
+* `sudo dnf swap mesa-vdpau-drivers.i686 mesa-vdpau-drivers-freeworld.i686`
 
 # Hardware codec with NVIDIA
 * The Nvidia proprieatary driver doesnt support VAAPI, but there is a wrapper that can bridge NVDEC/NVENC with VAAPI
-`sudo dnf install nvidia-vaapi-driver`
+* `sudo dnf install nvidia-vaapi-driver`
 
 # Play DVDs
 * Tainted repos requires the installation of the libdvdcss pkgs. Tainted free is dedicated for FLOSS packages where some usages might be restricted in some countries.
-`sudo dnf install libdvdcss`
-`sudo dnf install rpmfusion-free-release-tainted`
+* `sudo dnf install libdvdcss`
+* `sudo dnf install rpmfusion-free-release-tainted`
 
 ## Install additional codec
 * This will allows the application using the gstreamer framework and other multimedia software, to play others restricted codecs.
 * The following command will install the complements multimedia packages needed by gstreamer enabled applications
-`sudo dnf groupupdate multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin`
+* `sudo dnf groupupdate multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin`
 
 * Update and Install sound-and-video packages and core packages needed by some applications
-`sudo dnf groupupdate sound-and-video core`
-`sudo dnf group upgrade --with-optional Multimedia`
+* `sudo dnf groupupdate sound-and-video core`
+* `sudo dnf group upgrade --with-optional Multimedia`
 
 # Swap ffmpeg-free with rpmfusion ffmpeg
 * Fedora ffmpeg-free works most of the time, but version missmatch can occur every now and again.
 * You can switch to the rpmfusion provided ffmpeg build that is better supported.
 * The next section is for additional codecs or plugins related to packages you might have or want to install.
-`sudo dnf swap ffmpeg-free ffmpeg --allowerasing`
+* `sudo dnf swap ffmpeg-free ffmpeg --allowerasing`
 * Add a little extra
-`sudo dnf install lame\* --exclude=lame-devel`
+* `sudo dnf install lame\* --exclude=lame-devel`
 
 ##  H/W Video Decoding w/ VA-API
-`sudo dnf install ffmpeg ffmpeg-libs libva libva-utils`
+* `sudo dnf install ffmpeg ffmpeg-libs libva libva-utils`
 
 # Intel
 * For Intel chipsets (5th Gen and above)
-`sudo dnf swap libva-intel-media-driver intel-media-driver --allowerasing`
+* `sudo dnf swap libva-intel-media-driver intel-media-driver --allowerasing`
 
 # AMD
 * If you have an AMD chipset, after installing the packages above do
-`sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld`
+* `sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld`
 
 ## OpenH264 for Firefox
 * After this enable the OpenH264 Plugin in Firefoxs settings
-`sudo dnf config-manager --set-enabled fedora-#isco-openh264`
-`sudo dnf install -y openh264 gstreamer1-plugin-openh264 mozilla-openh264`
+* `sudo dnf config-manager --set-enabled fedora-#isco-openh264`
+* `sudo dnf install -y openh264 gstreamer1-plugin-openh264 mozilla-openh264`
 
 ## System, Bios and Power
 
 # Battery Life. Great for Labtops:
-`sudo dnf install tlp tlp-rdw`
+* `sudo dnf install tlp tlp-rdw`
 
 * Mask Power Profiles Daemon
-`sudo systemctl mask power-profiles-daemon`
+* `sudo systemctl mask power-profiles-daemon`
 
 * and show battery percentage as true:
-`gsettings set org.gnome.desktop.interface show-battery-percentage true`
+* `gsettings set org.gnome.desktop.interface show-battery-percentage true`
 
 # Set UTC Time:
 * Used to counter time inconsistencies in dual boot systems. If the clock in your bios is messed up this may help.
-`sudo timedatectl set-local-rtc '0'`
+* `sudo timedatectl set-local-rtc '0'`
 
 ## Optimizations for that little extra boost:
 * The tips below can allow you to squeeze out a little bit more performance from your system.
@@ -144,61 +144,61 @@ keepcache=yes
 * Therefore, disabling mitigations can present some security risks against various attacks. However, it still might increase the CPU performance of your system.
 
 # Disable Mitigations:
-`sudo grubby --update-kernel=ALL --args="mitigations=off"`
+* `sudo grubby --update-kernel=ALL --args="mitigations=off"`
 
 # Modern Standby:
 * can result in better battery life when your laptop goes to sleep.
-`sudo grubby --update-kernel=ALL --args="mem_sleep_default=s2idle"`
+* `sudo grubby --update-kernel=ALL --args="mem_sleep_default=s2idle"`
 
 * Note: If "s2idle" is not working, 
 
 # Enable nvidia-modeset:
 * Useful if you have a laptop with an Nvidia GPU. Necessary for some PRIME-related interoperability features.
-`sudo grubby --update-kernel=ALL --args="nvidia-drm.modeset=1"`
+* `sudo grubby --update-kernel=ALL --args="nvidia-drm.modeset=1"`
 
 # Disable NetworkManager-wait-online.service:
 * Disabling it can decrease the boot time by at least ~15s-20s:
-`sudo systemctl disable NetworkManager-wait-online.service`
+* `sudo systemctl disable NetworkManager-wait-online.service`
 
 # Disable Gnome Software from Startup Apps:
 * Gnome software autostarts on boot for some reason, even though it is not required on every boot unless you want it to do updates in the background, this takes at least 100MB of RAM upto 900MB (as reported anecdotically).
 * You can stop it from autostarting by:
-`sudo rm /etc/xdg/autostart/org.gnome.Software.desktop`
+* `sudo rm /etc/xdg/autostart/org.gnome.Software.desktop`
 
 ## Packages, Tools, Applications and Extensions
 
 # Archive Tools for opening compressed files
-`sudo dnf install -y unzip p7zip p7zip-plugins unrar`
+* `sudo dnf install -y unzip p7zip p7zip-plugins unrar`
 
 # GNOME Tweaks and Extension apps  
 * If you haven’t installed Gnome Tweaks, its necessary to do so before proceeding.
-`sudo dnf install -y gnome-tweaks gnome-extensions-app`
+* `sudo dnf install -y gnome-tweaks gnome-extensions-app`
                                   
 # FlatHub, Flatpak repo
-`flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo`
+* `flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo`
                                   
 # GNOME Extension Manager
-`flatpak install flathub com.mattjakeman.ExtensionManager`
+* `flatpak install flathub com.mattjakeman.ExtensionManager`
 
 # # Microsoft TrueType fonts
 * Installing Microsoft fonts may help improve compatibility and/or stability of Microsoft Office generated files. (i.e. Microsoft 365.)
-`sudo dnf install curl cabextract xorg-x11-font-utils fontconfig`
-`sudo rpm -i https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm`
+* `sudo dnf install curl cabextract xorg-x11-font-utils fontconfig`
+* `sudo rpm -i https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm`
 
 # Install and Make Nemo the default File Manager for GnomeDE
 * Has good options for files & plugins.
 * First we install
-`sudo dnf install -y nemo`
+* `sudo dnf install -y nemo`
 * Now we can apply the following to setup the directories and 
-`xdg-mime default nemo.desktop.inode/directory application/x-gnome-saved-search`
+* `xdg-mime default nemo.desktop.inode/directory application/x-gnome-saved-search`
 * Disable Nautilus
-`gsettings set org.gnome.desktop.background show-destop-icons false`
+* `gsettings set org.gnome.desktop.background show-destop-icons false`
 * Enable Nemo
-`gsettings set org.nemo.desktop show-destop-icons true`
+* `gsettings set org.nemo.desktop show-destop-icons true`
 * Thats it, done. Now you can check out some of the available plugins with a software manager like `dnfdragora` which also has a (-updater) app.
 
 * Software management
-`sudo dnf install -y dnfdragora dnfdragora-updater`
+* `sudo dnf install -y dnfdragora dnfdragora-updater`
 
 ###
 
